@@ -20,7 +20,7 @@ public class MachinesController: Controller
 
   public ActionResult Details(int id)
   {
-    Machine toDisplay = _db.Machine.Include(m => m.JoinEntities).ThenInclude(join => join.Engineer)
+    Machine toDisplay = _db.Machines.Include(m => m.JoinEntities).ThenInclude(join => join.Engineer)
                   .FirstOrDefault(m => m.MachineId == id);
     return View(toDisplay);    
   }
@@ -45,9 +45,9 @@ public class MachinesController: Controller
   public ActionResult AddEngineer(Machine machine, int engineerId)
   {
     #nullable enable
-    MachineEngineer? join= _db.MachineEngineers.FirstOrDefault(join => (join.EngineerId == engineerId && join.MachineId == tag.MachineId));
+    MachineEngineer? join= _db.MachineEngineers.FirstOrDefault(join => (join.EngineerId == engineerId && join.MachineId == machine.MachineId));
     #nullable disable
-    if(joinEntity == null && engineerId != 0)
+    if(join == null && engineerId != 0)
     {
       _db.MachineEngineers.Add(new MachineEngineer() { EngineerId = engineerId, MachineId = machine.MachineId });
       _db.SaveChanges();
@@ -79,7 +79,7 @@ public class MachinesController: Controller
   public ActionResult DeleteConfirmed(int id)
   {
     Machine toDelete = _db.Machines.FirstOrDefault(machine => machine.MachineId == id);
-    _db.Tags.Remove(toDelete);
+    _db.Machines.Remove(toDelete);
     _db.SaveChanges();
     return RedirectToAction("Index");
   }
@@ -87,7 +87,7 @@ public class MachinesController: Controller
   [HttpPost]
   public ActionResult DeleteJoin(int joinId)
   {
-    MachineEngineer join = _db.MachineEngineer.FirstOrDefault(me => me.MachineEngineerId == joinId);
+    MachineEngineer join = _db.MachineEngineers.FirstOrDefault(me => me.MachineEngineerId == joinId);
     _db.MachineEngineers.Remove(join);
     _db.SaveChanges();
     return RedirectToAction("Index");
