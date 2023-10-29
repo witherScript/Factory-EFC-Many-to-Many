@@ -37,10 +37,11 @@ $ touch appsettings.json
 
 5. Run the command ```dotnet restore``` to install necessary packages.
 6. Run the command ```dotnet build``` to compile the application.
-7. Run ```dotnet run``` to start the server and application.
-8. Visit localhost:5000 in your browser to access the Employee Manage application.
-9. Follow on-screen prompts to manage employee details.
-10. If you come across any difficulties or wish to give feedback, don't hesitate to get in touch or raise an issue on the repository.
+7. Run ```dotnet ef database update``` to replicate current schema migrations
+8. Run ```dotnet run``` to start the server and application.
+9. Visit localhost:5000 in your browser to access the Employee Manage application.
+10. Follow on-screen prompts to manage employee details.
+11. If you come across any difficulties or wish to give feedback, don't hesitate to get in touch or raise an issue on the repository.
 
 ## Known Bugs
 - Server restart completely manual, Ctrl+C 

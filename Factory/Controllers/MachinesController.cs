@@ -31,9 +31,16 @@ public class MachinesController: Controller
   [HttpPost]
   public ActionResult Create(Machine machine)
   {
-    _db.Machines.Add(machine);
-    _db.SaveChanges();
-    return RedirectToAction("Index");
+    if (!ModelState.IsValid)
+    {
+      return View(machine);
+    }
+    else
+    {
+      _db.Machines.Add(machine);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
   public ActionResult AddEngineer(int id)
   {
